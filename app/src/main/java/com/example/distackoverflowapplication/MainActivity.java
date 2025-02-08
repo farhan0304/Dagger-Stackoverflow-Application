@@ -9,58 +9,55 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import com.example.distackoverflowapplication.api.Repository;
+import com.example.distackoverflowapplication.mainui.RecyclerViewMVC;
+import com.example.distackoverflowapplication.mainui.RecyclerViewMVCImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewMVC.Listener {
 
-    RecyclerView recyclerView;
-    QuestionAdapter questionAdapter;
-    ArrayList<Question> list;
     Repository repository;
+    RecyclerViewMVCImpl recyclerViewMVC;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        recyclerView = findViewById(R.id.recyclerView);
-        list = new ArrayList<>();
+        recyclerViewMVC = new RecyclerViewMVCImpl(LayoutInflater.from(this),null);
+        setContentView(recyclerViewMVC.getRootView());
         repository = new Repository();
-        questionAdapter = new QuestionAdapter(list);
-        questionAdapter.setQuestionItemClickListener((view,position)->{
-            int questionId = list.get(position).getQuestion_id();
-            Intent i = new Intent(this,AnswerActivity.class);
-            i.putExtra("QuestionId",questionId);
-            startActivity(i);
-
-        });
-
-        recyclerView.setAdapter(questionAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, new LinearLayoutManager(this).getOrientation()));
 
         repository.getMutableLiveData().observe(this, new Observer<List<Question>>() {
             @Override
             public void onChanged(List<Question> questions) {
-                list.clear();
-                list.addAll(questions);
-                questionAdapter.notifyDataSetChanged();
+                recyclerViewMVC.bindQuestions((ArrayList<Question>) questions);
             }
 
         });
 
-
-
     }
 
-    private void loadQuestion() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        recyclerViewMVC.addNewListener(this);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        recyclerViewMVC.removeListener(this);
+    }
 
+    @Override
+    public void questionClicked(Question question) {
+        Intent i = new Intent(this,AnswerActivity.class);
+        i.putExtra("QuestionId",question.getQuestion_id());
+        startActivity(i);
+    }
 }

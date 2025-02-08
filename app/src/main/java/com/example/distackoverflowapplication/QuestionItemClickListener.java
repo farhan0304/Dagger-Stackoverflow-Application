@@ -4,6 +4,6 @@ import android.view.View;
 
 public interface QuestionItemClickListener {
 
-    void itemClick(View view,int position);
+    void itemClick(Question question);
 
 }

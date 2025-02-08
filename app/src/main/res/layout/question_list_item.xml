@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:text="stack overflow question"
         android:layout_alignParentStart="true"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:textSize="20sp"
         />
 

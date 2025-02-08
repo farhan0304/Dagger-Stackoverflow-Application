@@ -49,6 +49,12 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
         notifyDataSetChanged();
     }
 
+    public void updateQuestionArray(ArrayList<Question> questions){
+        questionArrayList.clear();
+        questionArrayList.addAll(questions);
+        notifyDataSetChanged();
+    }
+
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView questionText;
         public MyViewHolder(@NonNull View itemView) {
@@ -59,7 +65,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    questionItemClickListener.itemClick(view,position);
+                    Question question = questionArrayList.get(position);
+                    questionItemClickListener.itemClick(question);
                 }
             });
         }
