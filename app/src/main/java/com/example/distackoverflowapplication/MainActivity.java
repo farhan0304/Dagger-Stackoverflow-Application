@@ -1,19 +1,12 @@
 package com.example.distackoverflowapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.widget.Toast;
 
 import com.example.distackoverflowapplication.api.FetchQuestionList;
-import com.example.distackoverflowapplication.api.Repository;
 import com.example.distackoverflowapplication.mainui.RecyclerViewMVC;
 import com.example.distackoverflowapplication.mainui.RecyclerViewMVCImpl;
 

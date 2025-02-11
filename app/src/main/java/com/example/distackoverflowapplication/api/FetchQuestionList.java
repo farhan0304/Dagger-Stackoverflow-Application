@@ -9,14 +9,11 @@ import com.example.distackoverflowapplication.Question;
 import com.example.distackoverflowapplication.Results;
 import com.example.distackoverflowapplication.mainui.BaseObservable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FetchQuestionList extends BaseObservable<FetchQuestionList.Listener> implements Callback<Results> {
     View view;
@@ -27,6 +24,7 @@ public class FetchQuestionList extends BaseObservable<FetchQuestionList.Listener
         Results res = response.body();
         if(res!=null && res.getItems()!=null){
             notifyActivity(res.getItems());
+
         }
     }
 

@@ -9,16 +9,16 @@ public class Result2 {
 
     @SerializedName("items")
     @Expose
-    List<Answers> items;
+    List<QuestionBody> items;
 
     public Result2() {
     }
 
-    public List<Answers> getItems() {
+    public List<QuestionBody> getItems() {
         return items;
     }
 
-    public void setItems(List<Answers> items) {
+    public void setItems(List<QuestionBody> items) {
         this.items = items;
     }
 }

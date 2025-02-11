@@ -1,50 +1,51 @@
 package com.example.distackoverflowapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
-import android.widget.TextView;
+import android.view.LayoutInflater;
 
-import com.example.distackoverflowapplication.api.Repository;
+import com.example.distackoverflowapplication.api.FetchQuestionBody;
+import com.example.distackoverflowapplication.secondactivity.QuestionDetailActivityMvc;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AnswerActivity extends AppCompatActivity {
+public class AnswerActivity extends AppCompatActivity implements FetchQuestionBody.Listener {
 
-    TextView title2;
-    TextView questionText;
-
-    Repository repository;
+    QuestionDetailActivityMvc questionDetailActivityMvc;
+    FetchQuestionBody fetchQuestionBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_answer);
-        title2 = findViewById(R.id.title2);
-        questionText = findViewById(R.id.questionbody);
+        questionDetailActivityMvc = new QuestionDetailActivityMvc(LayoutInflater.from(this),null);
+        setContentView(questionDetailActivityMvc.getRootView());
 
-        Intent i = getIntent();
-        int quesId = i.getIntExtra("QuestionId",0);
+        fetchQuestionBody = new FetchQuestionBody(questionDetailActivityMvc.getRootView());
 
-        repository = new Repository();
-        repository.getAnswerLiveData(quesId).observe(this, new Observer<List<Answers>>() {
-            @Override
-            public void onChanged(List<Answers> answers) {
-                Answers ans = answers.get(0);
-                title2.setText(ans.getTitle());
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                    questionText.setText(Html.fromHtml(ans.getQuestionBody(),Html.FROM_HTML_MODE_LEGACY));
-                }else{
-                    questionText.setText(Html.fromHtml(ans.getQuestionBody()));
-                }
+        int quesId = getIntent().getIntExtra("QuestionId",0);
 
-            }
-        });
+        fetchQuestionBody.getQuestionBody(quesId);
         
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fetchQuestionBody.addNewListener(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        fetchQuestionBody.removeListener(this);
+    }
+
+    @Override
+    public void bindQuestionBodyFromApi(List<QuestionBody> questionBodies) {
+        questionDetailActivityMvc.bindQuestionBody((ArrayList<QuestionBody>) questionBodies);
     }
 }

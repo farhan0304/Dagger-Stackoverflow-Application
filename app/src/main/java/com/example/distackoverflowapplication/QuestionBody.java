@@ -3,7 +3,7 @@ package com.example.distackoverflowapplication;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Answers {
+public class QuestionBody {
 
     @SerializedName("title")
     @Expose
@@ -14,7 +14,7 @@ public class Answers {
     @Expose
     String questionBody;
 
-    public Answers() {
+    public QuestionBody() {
     }
 
     public String getTitle() {
@@ -33,7 +33,7 @@ public class Answers {
         this.questionBody = questionBody;
     }
 
-    public Answers(String title, String questionBody) {
+    public QuestionBody(String title, String questionBody) {
         this.title = title;
         this.questionBody = questionBody;
     }
