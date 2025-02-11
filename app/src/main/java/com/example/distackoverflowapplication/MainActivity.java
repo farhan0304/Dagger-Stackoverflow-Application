@@ -28,7 +28,7 @@ public class MainActivity extends BaseApp implements RecyclerViewMVC.Listener, F
         setContentView(recyclerViewMVC.getRootView());
 
         // Making Retrofit Global
-        QuestionService questionService = ((MyApplication) getApplication()).getCompositionRoot().getQuestionService();
+        QuestionService questionService = getApiService();
 
         fetchQuestionList = new FetchQuestionList(recyclerViewMVC.getRootView(),questionService);
 

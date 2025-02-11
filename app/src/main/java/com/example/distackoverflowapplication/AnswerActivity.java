@@ -13,7 +13,7 @@ import com.example.distackoverflowapplication.secondactivity.QuestionDetailActiv
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnswerActivity extends AppCompatActivity implements FetchQuestionBody.Listener {
+public class AnswerActivity extends BaseApp implements FetchQuestionBody.Listener {
 
     QuestionDetailActivityMvc questionDetailActivityMvc;
     FetchQuestionBody fetchQuestionBody;
@@ -25,7 +25,7 @@ public class AnswerActivity extends AppCompatActivity implements FetchQuestionBo
         setContentView(questionDetailActivityMvc.getRootView());
 
         //Making Retrofit Global
-        QuestionService questionService = ((MyApplication) getApplication()).getCompositionRoot().getQuestionService();
+        QuestionService questionService = getApiService();
 
         fetchQuestionBody = new FetchQuestionBody(questionDetailActivityMvc.getRootView(),questionService);
 
