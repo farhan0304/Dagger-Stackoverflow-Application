@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 
+import com.example.distackoverflowapplication.api.FetchQuestionList;
 import com.example.distackoverflowapplication.api.Repository;
 import com.example.distackoverflowapplication.mainui.RecyclerViewMVC;
 import com.example.distackoverflowapplication.mainui.RecyclerViewMVCImpl;
@@ -19,10 +20,10 @@ import com.example.distackoverflowapplication.mainui.RecyclerViewMVCImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewMVC.Listener {
+public class MainActivity extends AppCompatActivity implements RecyclerViewMVC.Listener, FetchQuestionList.Listener {
 
-    Repository repository;
     RecyclerViewMVCImpl recyclerViewMVC;
+    FetchQuestionList fetchQuestionList;
 
 
     @Override
@@ -30,28 +31,24 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewMVC.L
         super.onCreate(savedInstanceState);
         recyclerViewMVC = new RecyclerViewMVCImpl(LayoutInflater.from(this),null);
         setContentView(recyclerViewMVC.getRootView());
-        repository = new Repository();
 
-        repository.getMutableLiveData().observe(this, new Observer<List<Question>>() {
-            @Override
-            public void onChanged(List<Question> questions) {
-                recyclerViewMVC.bindQuestions((ArrayList<Question>) questions);
-            }
+        fetchQuestionList = new FetchQuestionList(recyclerViewMVC.getRootView());
 
-        });
-
+        fetchQuestionList.getQuestionList();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         recyclerViewMVC.addNewListener(this);
+        fetchQuestionList.addNewListener(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         recyclerViewMVC.removeListener(this);
+        fetchQuestionList.removeListener(this);
     }
 
     @Override
@@ -59,5 +56,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewMVC.L
         Intent i = new Intent(this,AnswerActivity.class);
         i.putExtra("QuestionId",question.getQuestion_id());
         startActivity(i);
+    }
+
+    @Override
+    public void bindQuestionFromApi(List<Question> questions) {
+        recyclerViewMVC.bindQuestions((ArrayList<Question>) questions);
     }
 }

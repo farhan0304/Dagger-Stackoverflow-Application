@@ -13,6 +13,6 @@ public interface QuestionService {
     @GET("2.3/questions")
     Call<Results> getItemsList(@Query("page") int page, @Query("pagesize") int pageSize, @Query("site") String site);
 
-    @GET("2.3/questions/{id}/answers")
-    Call<Result2> getAnswersItemsList(@Path("id") int id,@Query("order") String order,@Query("sort") String sort,@Query("site") String site);
+    @GET("2.3/questions/{id}?site=stackoverflow&filter=withbody")
+    Call<Result2> getAnswersItemsList(@Path("id") int id);
 }

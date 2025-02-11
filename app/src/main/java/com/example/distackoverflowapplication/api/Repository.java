@@ -53,7 +53,7 @@ public class Repository {
 
     public MutableLiveData<List<Answers>> getAnswerLiveData(int questionId){
         questionService = RetrofitInstance.getRetrofitInstance();
-        Call<Result2> call = questionService.getAnswersItemsList(questionId,"desc","activity","stackoverflow");
+        Call<Result2> call = questionService.getAnswersItemsList(questionId);
         call.enqueue(new Callback<Result2>() {
             @Override
             public void onResponse(Call<Result2> call, Response<Result2> response) {
@@ -62,7 +62,7 @@ public class Repository {
                     answerList = (ArrayList<Answers>) res.getItems();
                     answerLiveData.setValue(res.getItems());
                 }else{
-                    answerList.add(new Answers(false,0,"default license"));
+                    answerList.add(new Answers("title","body"));
                     answerLiveData.setValue(answerList);
                 }
             }

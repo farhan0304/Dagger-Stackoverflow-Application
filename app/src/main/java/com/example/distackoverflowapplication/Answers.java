@@ -5,48 +5,36 @@ import com.google.gson.annotations.SerializedName;
 
 public class Answers {
 
-    @SerializedName("is_accepted")
+    @SerializedName("title")
     @Expose
-    boolean isAccepted;
+    String title;
 
-    @SerializedName("score")
-    @Expose
-    int score;
 
-    @SerializedName("content_license")
+    @SerializedName("body")
     @Expose
-    String contentLicense;
+    String questionBody;
 
     public Answers() {
     }
 
-    public Answers(boolean isAccepted, int score, String contentLicense) {
-        this.isAccepted = isAccepted;
-        this.score = score;
-        this.contentLicense = contentLicense;
+    public String getTitle() {
+        return title;
     }
 
-    public boolean isAccepted() {
-        return isAccepted;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setAccepted(boolean accepted) {
-        isAccepted = accepted;
+    public String getQuestionBody() {
+        return questionBody;
     }
 
-    public int getScore() {
-        return score;
+    public void setQuestionBody(String questionBody) {
+        this.questionBody = questionBody;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public String getContentLicense() {
-        return contentLicense;
-    }
-
-    public void setContentLicense(String contentLicense) {
-        this.contentLicense = contentLicense;
+    public Answers(String title, String questionBody) {
+        this.title = title;
+        this.questionBody = questionBody;
     }
 }

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.example.distackoverflowapplication.api.Repository;
@@ -13,9 +15,8 @@ import java.util.List;
 
 public class AnswerActivity extends AppCompatActivity {
 
-    TextView isAccept;
-    TextView answerText;
-    TextView license;
+    TextView title2;
+    TextView questionText;
 
     Repository repository;
 
@@ -23,9 +24,9 @@ public class AnswerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
-        isAccept = findViewById(R.id.isaccept);
-        answerText = findViewById(R.id.quesId);
-        license = findViewById(R.id.lic);
+        title2 = findViewById(R.id.title2);
+        questionText = findViewById(R.id.questionbody);
+
         Intent i = getIntent();
         int quesId = i.getIntExtra("QuestionId",0);
 
@@ -34,9 +35,12 @@ public class AnswerActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Answers> answers) {
                 Answers ans = answers.get(0);
-                isAccept.setText(ans.isAccepted()+"");
-                answerText.setText(ans.getScore()+"");
-                license.setText(ans.getContentLicense());
+                title2.setText(ans.getTitle());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                    questionText.setText(Html.fromHtml(ans.getQuestionBody(),Html.FROM_HTML_MODE_LEGACY));
+                }else{
+                    questionText.setText(Html.fromHtml(ans.getQuestionBody()));
+                }
 
             }
         });
