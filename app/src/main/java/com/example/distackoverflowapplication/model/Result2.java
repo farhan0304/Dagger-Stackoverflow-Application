@@ -1,5 +1,6 @@
-package com.example.distackoverflowapplication;
+package com.example.distackoverflowapplication.model;
 
+import com.example.distackoverflowapplication.model.QuestionBody;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

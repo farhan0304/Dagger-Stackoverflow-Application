@@ -1,16 +1,13 @@
 package com.example.distackoverflowapplication.mainui;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.distackoverflowapplication.Question;
-import com.example.distackoverflowapplication.QuestionAdapter;
-import com.example.distackoverflowapplication.QuestionItemClickListener;
+import com.example.distackoverflowapplication.model.Question;
 import com.example.distackoverflowapplication.R;
 
 import java.util.ArrayList;

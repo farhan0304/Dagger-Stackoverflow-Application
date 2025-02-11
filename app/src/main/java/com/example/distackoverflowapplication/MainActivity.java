@@ -7,13 +7,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import com.example.distackoverflowapplication.api.FetchQuestionList;
+import com.example.distackoverflowapplication.api.QuestionService;
 import com.example.distackoverflowapplication.mainui.RecyclerViewMVC;
 import com.example.distackoverflowapplication.mainui.RecyclerViewMVCImpl;
+import com.example.distackoverflowapplication.model.Question;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewMVC.Listener, FetchQuestionList.Listener {
+public class MainActivity extends BaseApp implements RecyclerViewMVC.Listener, FetchQuestionList.Listener {
 
     RecyclerViewMVCImpl recyclerViewMVC;
     FetchQuestionList fetchQuestionList;
@@ -25,9 +27,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewMVC.L
         recyclerViewMVC = new RecyclerViewMVCImpl(LayoutInflater.from(this),null);
         setContentView(recyclerViewMVC.getRootView());
 
-        fetchQuestionList = new FetchQuestionList(recyclerViewMVC.getRootView());
+        // Making Retrofit Global
+        QuestionService questionService = ((MyApplication) getApplication()).getCompositionRoot().getQuestionService();
+
+        fetchQuestionList = new FetchQuestionList(recyclerViewMVC.getRootView(),questionService);
 
         fetchQuestionList.getQuestionList();
+
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.example.distackoverflowapplication.mainui;
 
-import com.example.distackoverflowapplication.Question;
+import com.example.distackoverflowapplication.model.Question;
 
 import java.util.ArrayList;
 

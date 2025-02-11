@@ -1,7 +1,7 @@
 package com.example.distackoverflowapplication.api;
 
-import com.example.distackoverflowapplication.Result2;
-import com.example.distackoverflowapplication.Results;
+import com.example.distackoverflowapplication.model.Result2;
+import com.example.distackoverflowapplication.model.Results;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,12 +1,10 @@
 package com.example.distackoverflowapplication.api;
 
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.example.distackoverflowapplication.Question;
-import com.example.distackoverflowapplication.Results;
+import com.example.distackoverflowapplication.model.Question;
+import com.example.distackoverflowapplication.model.Results;
 import com.example.distackoverflowapplication.mainui.BaseObservable;
 
 import java.util.List;
@@ -44,9 +42,9 @@ public class FetchQuestionList extends BaseObservable<FetchQuestionList.Listener
         void bindQuestionFromApi(List<Question> questions);
     }
 
-    public FetchQuestionList(View view) {
+    public FetchQuestionList(View view,QuestionService questionService) {
         this.view = view;
-        questionService = RetrofitInstance.getRetrofitInstance();
+        this.questionService = questionService;
     }
 
     public void getQuestionList(){

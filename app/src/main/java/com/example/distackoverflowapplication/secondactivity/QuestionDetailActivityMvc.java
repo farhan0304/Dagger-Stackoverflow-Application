@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.distackoverflowapplication.QuestionBody;
+import com.example.distackoverflowapplication.model.QuestionBody;
 import com.example.distackoverflowapplication.R;
 
 import java.util.ArrayList;

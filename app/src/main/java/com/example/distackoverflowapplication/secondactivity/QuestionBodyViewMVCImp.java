@@ -1,6 +1,6 @@
 package com.example.distackoverflowapplication.secondactivity;
 
-import com.example.distackoverflowapplication.QuestionBody;
+import com.example.distackoverflowapplication.model.QuestionBody;
 
 import java.util.ArrayList;
 

@@ -3,9 +3,8 @@ package com.example.distackoverflowapplication.api;
 import android.util.Log;
 import android.view.View;
 
-import com.example.distackoverflowapplication.QuestionBody;
-import com.example.distackoverflowapplication.Result2;
-import com.example.distackoverflowapplication.Results;
+import com.example.distackoverflowapplication.model.QuestionBody;
+import com.example.distackoverflowapplication.model.Result2;
 import com.example.distackoverflowapplication.mainui.BaseObservable;
 
 import java.util.List;
@@ -50,9 +49,9 @@ public class FetchQuestionBody extends BaseObservable<FetchQuestionBody.Listener
         void bindQuestionBodyFromApi(List<QuestionBody> questionBodies);
     }
 
-    public FetchQuestionBody(View view) {
+    public FetchQuestionBody(View view,QuestionService questionService) {
         this.view = view;
-        questionService = RetrofitInstance.getRetrofitInstance();
+        this.questionService = questionService;
     }
 
     public void getQuestionBody(int questionId){

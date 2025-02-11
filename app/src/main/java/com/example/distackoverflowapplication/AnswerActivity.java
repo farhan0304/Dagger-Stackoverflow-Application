@@ -2,11 +2,12 @@ package com.example.distackoverflowapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import com.example.distackoverflowapplication.api.FetchQuestionBody;
+import com.example.distackoverflowapplication.api.QuestionService;
+import com.example.distackoverflowapplication.model.QuestionBody;
 import com.example.distackoverflowapplication.secondactivity.QuestionDetailActivityMvc;
 
 import java.util.ArrayList;
@@ -23,7 +24,10 @@ public class AnswerActivity extends AppCompatActivity implements FetchQuestionBo
         questionDetailActivityMvc = new QuestionDetailActivityMvc(LayoutInflater.from(this),null);
         setContentView(questionDetailActivityMvc.getRootView());
 
-        fetchQuestionBody = new FetchQuestionBody(questionDetailActivityMvc.getRootView());
+        //Making Retrofit Global
+        QuestionService questionService = ((MyApplication) getApplication()).getCompositionRoot().getQuestionService();
+
+        fetchQuestionBody = new FetchQuestionBody(questionDetailActivityMvc.getRootView(),questionService);
 
         int quesId = getIntent().getIntExtra("QuestionId",0);
 
